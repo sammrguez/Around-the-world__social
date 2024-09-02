@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import '../index.css';
-import ProtectedRoute from './ProtectedRoute';
-import Register from './Register';
-import Login from './Login';
-import Header from './Header';
-import Main from './Main';
-import Footer from './Footer';
-import api from '../utils/api';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import EditProfilePopup from './EditProfilePopup';
-import EditAvatarPopup from './EditAvatarPopup';
-import AddPlacePopup from './AddPlacePopup';
-import * as auth from '../utils/auth';
+import React, { useState, useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import "../index.css";
+import ProtectedRoute from "./ProtectedRoute";
+import Register from "./Register";
+import Login from "./Login";
+import Header from "./Header";
+import Main from "./Main";
+import Footer from "./Footer";
+import api from "../utils/api";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
+import * as auth from "../utils/auth";
 
 function App() {
   const navigate = useNavigate();
@@ -30,9 +30,9 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
-  const [token, setToken] = useState(localStorage.getItem('jwt'));
+  const [token, setToken] = useState(localStorage.getItem("jwt"));
 
   useEffect(() => {
     api.getUserInfo(token).then((user) => {
@@ -58,7 +58,7 @@ function App() {
   // este es el effect de logged in o mantener sesion iniciada
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('jwt');
+    const storedToken = localStorage.getItem("jwt");
 
     if (storedToken) {
       setToken(storedToken);
@@ -75,18 +75,18 @@ function App() {
 
             setCurrentUser(data);
 
-            navigate('/');
+            navigate("/");
           } else {
-            navigate('/signup');
+            navigate("/signup");
 
-            throw new Error('Token inválido');
+            throw new Error("Token inválido");
           }
         })
 
         .catch((err) => {
           console.log(err);
 
-          navigate('/signup');
+          navigate("/signup");
         });
     }
   }, [loggedIn, navigate, token]);
@@ -120,7 +120,7 @@ function App() {
         setCurrentUser(newData);
       })
       .catch((error) => {
-        console.error('Error al actualizar avatar:', error);
+        console.error("Error al actualizar avatar:", error);
       });
   }
 
@@ -131,7 +131,7 @@ function App() {
         setCurrentUser(newData);
       })
       .catch((error) => {
-        console.error('Error al actualizar el perfil:', error);
+        console.error("Error al actualizar el perfil:", error);
       });
   }
 
@@ -163,9 +163,9 @@ function App() {
   }
 
   function signOut() {
-    localStorage.removeItem('jwt');
-    setEmail('');
-    navigate('./signin');
+    localStorage.removeItem("jwt");
+    setEmail("");
+    navigate("./signin");
   }
 
   return (
@@ -173,15 +173,15 @@ function App() {
       <Routes>
         <Route element={<ProtectedRoute loggedIn={loggedIn} />}>
           <Route
-            path='/'
+            path="/"
             element={
               <>
                 <Header>
-                  <button onClick={signOut} className='header__sign'>
-                    {' '}
+                  <button onClick={signOut} className="header__sign">
+                    {" "}
                     Cerrar Sesión
                   </button>
-                  <p className='header__sign'>{email} </p>
+                  <p className="header__sign">{email} </p>
                 </Header>
                 <Main
                   onEditAvatarClick={handleEditAvatarClick}
@@ -211,16 +211,16 @@ function App() {
                     isOpen={isAddPlacePopupOpen}
                     onClose={closeAllPopups}
                     onAddPlaceSubmit={handleAddPlaceSubmit}
-                  />{' '}
+                  />{" "}
                 </Main>
               </>
             }
           ></Route>
         </Route>
 
-        <Route path='*' element={<Register />}></Route>
+        <Route path="*" element={<Register />}></Route>
         <Route
-          path='/signin'
+          path="/signin"
           element={<Login handleLogin={handleLogin} />}
         ></Route>
       </Routes>

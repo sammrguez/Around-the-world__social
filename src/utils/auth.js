@@ -1,4 +1,4 @@
-const BASE_URL = "https://around-the-world-social-backend-9hu57tzz5.vercel.app";
+const BASE_URL = "https://around-the-world-social-backend.vercel.app";
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",

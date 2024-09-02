@@ -67,6 +67,6 @@ class Api {
 }
 
 const api = new Api({
-  BASE_URL: "https://around-the-world-social-backend-9hu57tzz5.vercel.app",
+  BASE_URL: "https://around-the-world-social-backend.vercel.app",
 });
 export default api;
